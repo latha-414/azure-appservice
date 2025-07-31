@@ -31,6 +31,6 @@ jobs:
 
     - name: Build and Push Docker image
       run: |
-        docker build -t myacrnode.azurecr.io/mywebappnode:latest .
+        docker build -t myacrnode.azurecr.io/mywebappnode:latest ./test-app
         docker push myacrnode.azurecr.io/mywebappnode:latest
 
