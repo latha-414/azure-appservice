@@ -21,4 +21,4 @@ jobs:
       uses: azure/webapps-deploy@v2
       with:
         app-name: mywebappnode
-        images: myacrnode.azurecr.io/myapp:latest
+        images: myacrnode.azurecr.io/mywebappnode:latest
