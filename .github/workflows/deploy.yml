@@ -1,0 +1,23 @@
+name: Deploy to Azure Web App
+
+on:
+  workflow_run:
+    workflows: ["Build and Push Docker Image to ACR"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Deploy to App Service
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: my-nodejs-webapp
+        images: myacr12345.azurecr.io/myapp:latest
