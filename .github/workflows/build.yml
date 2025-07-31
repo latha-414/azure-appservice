@@ -1,0 +1,31 @@
+name: Build and Push Docker Image to ACR
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Docker Login to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: myacr12345.azurecr.io
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
+
+    - name: Build and Push Docker image
+      run: |
+        docker build -t myacr12345.azurecr.io/myapp:latest ./test-app
+        docker push myacr12345.azurecr.io/myapp:latest
