@@ -16,16 +16,20 @@ jobs:
     - name: Azure Login
       uses: azure/login@v1
       with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
 
     - name: Docker Login to ACR
       uses: azure/docker-login@v1
       with:
-        login-server: myacr12345.azurecr.io
+        login-server: myacrnode.azurecr.io
         username: ${{ secrets.ACR_USERNAME }}
         password: ${{ secrets.ACR_PASSWORD }}
 
     - name: Build and Push Docker image
       run: |
-        docker build -t myacr12345.azurecr.io/myapp:latest ./test-app
-        docker push myacr12345.azurecr.io/myapp:latest
+        docker build -t myacrnode.azurecr.io/mywebappnode:latest .
+        docker push myacrnode.azurecr.io/mywebappnode:latest
+
