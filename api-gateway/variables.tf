@@ -1,22 +1,26 @@
-# provider.tf
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~>3.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~>3.1"
-    }
-  }
+# variables.tf
+variable "client_id" {
+  type = string
 }
 
-provider "azurerm" {
-  features {}
-  
-  client_id       = var.client_id
-  client_secret   = var.client_secret
-  tenant_id       = var.tenant_id
-  subscription_id = var.subscription_id
+variable "client_secret" {
+  type = string
+}
+
+variable "tenant_id" {
+  type = string
+}
+
+variable "subscription_id" {
+  type = string
+}
+
+variable "location" {
+  type    = string
+  default = "East US"
+}
+
+variable "publisher_email" {
+  type    = string
+  default = "admin@example.com"
 }
